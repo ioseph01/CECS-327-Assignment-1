@@ -11,4 +11,4 @@ Without closing that terminal, bind the app server with `python3 app_server.py`.
 
 In a third terminal, connect to the app server with the client with `python3 client.py`.
 
-In the same terminal that ran the client.py command, you can input commands which should connect to the app_server which would connect to the data_server.
+In the same terminal that ran the client.py command, you can input commands which should connect to the `app_server` which would connect to the `data_server`.
