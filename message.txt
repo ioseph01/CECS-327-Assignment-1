@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "city": "Long Beach",
+    "address": "123 Ocean Blvd",
+    "price": 2200,
+    "bedrooms": 2
+  },
+  {
+    "id": 2,
+    "city": "New York",
+    "address": "456 Park Ave",
+    "price": 4500,
+    "bedrooms": 3
+  },
+  {
+    "id": 3,
+    "city": "London",
+    "address": "789 Regent St",
+    "price": 3000,
+    "bedrooms": 2
+  },
+  {
+    "id": 4,
+    "city": "Tokyo",
+    "address": "32 Shibuya Crossing",
+    "price": 1500,
+    "bedrooms": 1
+  },
+  {
+    "id": 5,
+    "city": "Paris",
+    "address": "15 Rue de Rivoli",
+    "price": 2500,
+    "bedrooms": 2
+  },
+  {
+    "id": 6,
+    "city": "Sydney",
+    "address": "67 Darling St",
+    "price": 3000,
+    "bedrooms": 3
+  },
+  {
+    "id": 7,
+    "city": "Los Angeles",
+    "address": "234 Sunset Blvd",
+    "price": 3500,
+    "bedrooms": 3
+  },
+  {
+    "id": 8,
+    "city": "Toronto",
+    "address": "123 Queen St W",
+    "price": 2000,
+    "bedrooms": 2
+  },
+  {
+    "id": 9,
+    "city": "Berlin",
+    "address": "67 Alexanderplatz",
+    "price": 1800,
+    "bedrooms": 1
+  },
+  {
+    "id": 10,
+    "city": "Barcelona",
+    "address": "9 Las Ramblas",
+    "price": 2200,
+    "bedrooms": 2
+  },
+  {
+    "id": 11,
+    "city": "Rome",
+    "address": "25 Via Nazionale",
+    "price": 2400,
+    "bedrooms": 2
+  },
+  {
+    "id": 12,
+    "city": "Mumbai",
+    "address": "101 Marine Drive",
+    "price": 3500,
+    "bedrooms": 3
+  },
+  {
+    "id": 13,
+    "city": "Dubai",
+    "address": "56 Sheikh Zayed Rd",
+    "price": 4000,
+    "bedrooms": 3
+  },
+  {
+    "id": 14,
+    "city": "Vancouver",
+    "address": "11 Robson St",
+    "price": 2800,
+    "bedrooms": 2
+  },
+  {
+    "id": 15,
+    "city": "Cape Town",
+    "address": "89 Green Point Rd",
+    "price": 1800,
+    "bedrooms": 2
+  },
+  {
+    "id": 16,
+    "city": "Hong Kong",
+    "address": "200 Nathan Rd",
+    "price": 3200,
+    "bedrooms": 2
+  },
+  {
+    "id": 17,
+    "city": "San Francisco",
+    "address": "501 Market St",
+    "price": 4200,
+    "bedrooms": 3
+  },
+  {
+    "id": 18,
+    "city": "Singapore",
+    "address": "34 Orchard Rd",
+    "price": 3500,
+    "bedrooms": 2
+  },
+  {
+    "id": 19,
+    "city": "Moscow",
+    "address": "75 Tverskaya St",
+    "price": 2500,
+    "bedrooms": 2
+  },
+  {
+    "id": 20,
+    "city": "Los Angeles",
+    "address": "112 Melrose Ave",
+    "price": 3800,
+    "bedrooms": 3
+  }
+]
