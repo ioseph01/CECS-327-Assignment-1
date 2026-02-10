@@ -7,7 +7,7 @@ To run, navigate to the project directory.
 
 In a terminal, launch the data server with `python3 data_server.py`.
 
-Without closing that terminal, bind the app server with `python3 app_server.py`.
+Without closing that terminal, bind the app server with `python3 app_server.py` in a second terminal.
 
 In a third terminal, connect to the app server with the client with `python3 client.py`.
 
