@@ -3,7 +3,7 @@ Mini Housing Search Service
 
 RIGHT NOW, IT IS ONLY SENDING MESSAGES FROM CLIENT TO SERVER TO BE PRINTED.
 
-Navigate to the project directory.
+To run, navigate to the project directory.
 
 In a terminal, launch the data server with `python3 data_server.py`.
 
