@@ -10,14 +10,20 @@
 
 import socket
 
-clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-clientsocket.connect(('localhost', 5000))
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 5000))
+
 while True:
-    cmd = input("Say something.. ")
+    cmd = input("Say something.. ").strip('/n')
+    print("<<", cmd)
+    print(cmd, ">>")
+    client_socket.send(cmd.encode('utf-8'))
 
-    clientsocket.sendall((cmd + '\n').encode('utf-8'))
+    response = client_socket.recv(1024).decode('utf-8').strip()
+    print("<<", response)
 
-    if cmd == 'break':
+    if cmd == 'quit':
         break
 
-clientsocket.close()
+print("QUITTING")
+client_socket.close()
