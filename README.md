@@ -1,7 +1,7 @@
 # CECS-327-Assignment-1
 Mini Housing Search Service
 
-RIGHT NOW, IT IS ONLY SENDING MESSAGES FROM CLIENT TO SERVER TO BE PRINTED.
+RIGHT NOW, CLIENT TAKES AN INPUT -> APP_SERVER * 2 -> DATA_SERVER + 1 -> APP_SERVER -> CLIENT
 
 To run, navigate to the project directory.
 
