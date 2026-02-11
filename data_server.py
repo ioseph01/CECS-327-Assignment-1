@@ -40,8 +40,8 @@ while True:
         
 
         if data == 'quit':
-           print("QUITTING?")
            break
+        
         num = int(data)
         result = num + 1
         print("<<", num)
