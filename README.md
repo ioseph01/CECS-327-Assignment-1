@@ -3,6 +3,16 @@ Mini Housing Search Service
 
 RIGHT NOW, CLIENT TAKES AN INPUT -> APP_SERVER * 2 -> DATA_SERVER + 1 -> APP_SERVER -> CLIENT
 
+# Valid Commands
+
+- `SEARCH city=<CityName> max_price=<Integer>`
+
+- `LIST`
+
+- `QUIT`
+
+# Deployment
+
 To run, navigate to the project directory.
 
 In a terminal, launch the data server with `python3 data_server.py`.
