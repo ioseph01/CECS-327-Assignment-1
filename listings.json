@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "city": "Long Beach",
+    "city": "LongBeach",
     "address": "123 Ocean Blvd",
     "price": 2200,
     "bedrooms": 2
   },
   {
     "id": 2,
-    "city": "New York",
+    "city": "NewYork",
     "address": "456 Park Ave",
     "price": 4500,
     "bedrooms": 3
@@ -43,7 +43,7 @@
   },
   {
     "id": 7,
-    "city": "Los Angeles",
+    "city": "LosAngeles",
     "address": "234 Sunset Blvd",
     "price": 3500,
     "bedrooms": 3
@@ -99,21 +99,21 @@
   },
   {
     "id": 15,
-    "city": "Cape Town",
+    "city": "CapeTown",
     "address": "89 Green Point Rd",
     "price": 1800,
     "bedrooms": 2
   },
   {
     "id": 16,
-    "city": "Hong Kong",
+    "city": "HongKong",
     "address": "200 Nathan Rd",
     "price": 3200,
     "bedrooms": 2
   },
   {
     "id": 17,
-    "city": "San Francisco",
+    "city": "SanFrancisco",
     "address": "501 Market St",
     "price": 4200,
     "bedrooms": 3
@@ -134,7 +134,7 @@
   },
   {
     "id": 20,
-    "city": "Los Angeles",
+    "city": "LosAngeles",
     "address": "112 Melrose Ave",
     "price": 3800,
     "bedrooms": 3

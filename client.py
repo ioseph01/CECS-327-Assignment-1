@@ -22,7 +22,7 @@ while True:
     response = client_socket.recv(1024).decode('utf-8').strip()
     print("<<", response)
 
-    if cmd == 'quit':
+    if cmd == 'QUIT':
         break
 
 print("QUITTING")

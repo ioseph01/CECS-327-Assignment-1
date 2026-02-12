@@ -15,6 +15,7 @@
 
 from collections import OrderedDict
 import socket
+import re
 
 
 class Cache:
@@ -76,17 +77,15 @@ while True:
 
     try:
         if data == 'QUIT':
-            data_socket.send("QUIT".encode('utf-8'))
+            data_socket.send(data.encode('utf-8'))
             break
         elif data == 'LIST':
             data_socket.send("RAW_LIST".encode('utf-8'))
+        elif re.match(r"^SEARCH city=([A-Za-z]+) max_price=(\d+)$", data) is not None:
+            data_socket.send(("RAW_"+data).encode('utf-8'))
         else:
-            try:
-                split_cmd = data.split()
-            except:
-                client_socket.send("Error: Invalid Command".encode('utf-8'))
-                continue
-            
+            client_socket.send("Error: Invalid Command".encode('utf-8'))   
+            continue
 
         # num = int(data)
         # result = num * 2
@@ -94,7 +93,6 @@ while True:
         # print(">>", result)
 
 
-        data_socket.send(str(data).encode('utf-8'))
 
         returned_result = data_socket.recv(1024).decode('utf-8').strip()
         # print("<<", returned_result)

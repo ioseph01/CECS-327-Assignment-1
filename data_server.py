@@ -10,9 +10,6 @@ import json
 
 DATA = json.load(open('listings.json'))
 
-def RAW_LIST():
-  return DATA
-
 
 def RAW_SEARCH(city, max_price):
   # Filter by city and price
@@ -39,14 +36,24 @@ while True:
             break  # Exit if no data is received
         
 
-        if data == 'quit':
+        if data == 'QUIT':
            break
+        elif data == 'RAW_LIST':
+          connection.send(str(DATA).encode('utf-8'))  # Send the result back to the server
+        else:
+          print(data)
+          data = data.split()
+          city = data[1][5:]
+          price = data[2][10:]
+          connection.send(str(RAW_SEARCH(city, int(price))).encode('utf-8'))  
+          # Send the result back to the server
+           
         
-        num = int(data)
-        result = num + 1
-        print("<<", num)
-        print(">>", result)
-        connection.send(str(result).encode('utf-8'))  # Send the result back to the server
+        # num = int(data)
+        # result = num + 1
+        # print("<<", num)
+        # print(">>", result)
+        # connection.send(str(result).encode('utf-8'))  # Send the result back to the server
     except ValueError:
         connection.send("Error: Bad Request.".encode('utf-8'))
         raise ValueError
