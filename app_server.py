@@ -6,6 +6,13 @@
 
 # Using an interceptor, write all the requests and replies in a log file called app_server.log
 
+# SEARCH city=<CityName> max_price=<Integer>
+
+#LIST
+
+#QUIT
+
+
 from collections import OrderedDict
 import socket
 
@@ -34,54 +41,66 @@ def rank_results(results):
     return sorted(results, key=lambda x: (x['price'], -x['bedrooms']))
 
 
-def clean_input(cmd):
-    return cmd.strip().lower()
+
+# Cache
 
 cache = Cache()
 
-# Bind server socket
+# Bind app_server socket
+
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('localhost', 5000))
 server_socket.listen(5) # become a server socket, maximum 5 connections
 
 client_socket, client_address = server_socket.accept()
 
+# Connect to data socket
+
 data_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 data_socket.connect(('localhost', 6000))
 
 
-
 while True:
+    # Receive the input and clean the input
     data = client_socket.recv(1024).decode('utf-8').strip()
-    data = clean_input(data)
     if not data:
         break
 
+    # Cache check
     cache_result = cache.search(data)
     if cache_result is not None:
-        print("<<", data)
-        print("CACHE >>", cache_result)
+        # print("<<", data)
+        # print("CACHE >>", cache_result)
         client_socket.sendall(str(cache_result).encode('utf-8'))
         continue
 
     try:
-        if data == 'quit':
-            data_socket.send("quit".encode('utf-8'))
+        if data == 'QUIT':
+            data_socket.send("QUIT".encode('utf-8'))
             break
+        elif data == 'LIST':
+            data_socket.send("RAW_LIST".encode('utf-8'))
+        else:
+            try:
+                split_cmd = data.split()
+            except:
+                client_socket.send("Error: Invalid Command".encode('utf-8'))
+                continue
+            
 
-        num = int(data)
-        result = num * 2
-        print("<<", num)
-        print(">>", result)
+        # num = int(data)
+        # result = num * 2
+        # print("<<", num)
+        # print(">>", result)
 
 
-        data_socket.send(str(result).encode('utf-8'))
+        data_socket.send(str(data).encode('utf-8'))
 
         returned_result = data_socket.recv(1024).decode('utf-8').strip()
-        print("<<", returned_result)
-        print(">>", returned_result)
+        # print("<<", returned_result)
+        # print(">>", returned_result)
 
-        cache.insert(str(data), result)
+        cache.insert(str(data), returned_result)
         client_socket.send(returned_result.encode('utf-8'))
     
     except ValueError:
