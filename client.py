@@ -17,8 +17,7 @@ client_socket.connect(('localhost', 5000))
 while True:
     cmd = input("Enter command (LIST / SEARCH city=<City> max_price=<Int> / QUIT): ").strip()
     request = json.dumps([cmd, None])
-    print("<<", cmd)
-    print(cmd, ">>")
+    print("Client:", cmd)
     client_socket.send(request.encode('utf-8'))
     if cmd == "QUIT":
         break
@@ -29,7 +28,8 @@ while True:
         print(f"Server: {status}")
         if "OK RESULT" in status:
             for entry in result:
-                print(f"\t{str(entry)[1:-1]}")
+                e = str(entry).replace("'","").replace(',', ';').replace(': ', '=')[1:-1]
+                print(f"\t{e}")
             print()
         
     except json.JSONDecodeError:
