@@ -16,8 +16,9 @@ def RAW_SEARCH(city, max_price):
   return [entry for entry in DATA if entry['city'].lower() == city.lower() and entry['price'] <= max_price]
 
 
-def ERROR_HANDLER():
-  return 'Error: Bad Request'
+def send_json(sock, status, result):
+    sock.sendall(json.dumps([status, result]).encode('utf-8'))
+
 
 data_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 data_socket.bind(('localhost', 6000))  
@@ -30,23 +31,26 @@ while True:
     # Convert the received data to an integer and add 1
     try:
         # Receive data from the server
-        data = connection.recv(1024).decode('utf-8').strip()
+        raw_response = connection.recv(4096).decode('utf-8').strip()
         
-        if not data:
+        if not raw_response:
             break  # Exit if no data is received
         
+        command, params = json.loads(raw_response)
 
-        if data == 'QUIT':
+        if command == 'QUIT':
+           send_json(connection, "OK shutting down", None)
            break
-        elif data == 'RAW_LIST':
-          connection.send(str(DATA).encode('utf-8'))  # Send the result back to the server
+          
+        elif command == 'RAW_LIST':
+          send_json(connection, f"OK RESULT {len(DATA)}", DATA)
+
+        elif command == 'RAW_SEARCH':
+          results = RAW_SEARCH(params['city'], int(params['max_price']))
+          send_json(connection, f"OK RESULT {len(results)}", results)
+        
         else:
-          print(data)
-          data = data.split()
-          city = data[1][5:]
-          price = data[2][10:]
-          connection.send(str(RAW_SEARCH(city, int(price))).encode('utf-8'))  
-          # Send the result back to the server
+            send_json(connection, f"ERROR Unknown command: {command}", None)
            
         
         # num = int(data)

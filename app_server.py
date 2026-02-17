@@ -15,6 +15,7 @@
 
 from collections import OrderedDict
 import socket
+import json
 import re
 
 
@@ -42,9 +43,16 @@ def rank_results(results):
     return sorted(results, key=lambda x: (x['price'], -x['bedrooms']))
 
 
+def send_json(socket, status, result):
+    socket.sendall(json.dumps([status, result]).encode('utf-8'))
+
+
+def request_data(data_socket, command, params=None):
+    data_socket.sendall(json.dumps([command, params]).encode('utf-8'))
+    raw = data_socket.recv(4096).decode('utf-8').strip()
+    return json.loads(raw)
 
 # Cache
-
 cache = Cache()
 
 # Bind app_server socket
@@ -63,46 +71,47 @@ data_socket.connect(('localhost', 6000))
 
 while True:
     # Receive the input and clean the input
-    data = client_socket.recv(1024).decode('utf-8').strip()
-    if not data:
+    raw_data = client_socket.recv(4096).decode('utf-8').strip()
+
+    if not raw_data:
         break
 
+    request = json.loads(raw_data)
+    command = request[0].strip()
+
     # Cache check
-    cache_result = cache.search(data)
+    cache_result = cache.search(command)
     if cache_result is not None:
         # print("<<", data)
         # print("CACHE >>", cache_result)
-        client_socket.sendall(str(cache_result).encode('utf-8'))
+        client_socket.sendall(json.dumps(cache_result).encode('utf-8'))
         continue
 
     try:
-        if data == 'QUIT':
-            data_socket.send(data.encode('utf-8'))
+        if command == 'QUIT':
+            request_data(data_socket, "QUIT")
+            data_socket.send(command.encode('utf-8'))
             break
-        elif data == 'LIST':
-            data_socket.send("RAW_LIST".encode('utf-8'))
-        elif re.match(r"^SEARCH city=([A-Za-z]+) max_price=(\d+)$", data) is not None:
-            data_socket.send(("RAW_"+data).encode('utf-8'))
+
+        elif command == 'LIST':
+            status, result = request_data(data_socket, "RAW_LIST")
+            response = [status, rank_results(result)]
+
+        elif re.match(r"^SEARCH city=([A-Za-z]+) max_price=(\d+)$", command) is not None:
+            case = re.match(r"^SEARCH city=([A-Za-z]+) max_price=(\d+)$", command)
+            city = case.group(1)
+            max_price = int(case.group(2))
+            status, result = request_data(data_socket, "RAW_SEARCH", {"city": city, "max_price": max_price})
+            response = [status, rank_results(result)]
+
         else:
-            client_socket.send("Error: Invalid Command".encode('utf-8'))   
-            continue
+            response = ["ERROR: Invalid command.", None] 
 
-        # num = int(data)
-        # result = num * 2
-        # print("<<", num)
-        # print(">>", result)
-
-
-
-        returned_result = data_socket.recv(1024).decode('utf-8').strip()
-        # print("<<", returned_result)
-        # print(">>", returned_result)
-
-        cache.insert(str(data), returned_result)
-        client_socket.send(returned_result.encode('utf-8'))
+        cache.insert(command, response)
+        client_socket.sendall(json.dumps(response).encode('utf-8'))
     
     except ValueError:
-        client_socket.send("Error: Bad Request".encode('utf-8'))
+        raise RuntimeError
         
 print("QUITTING")
 client_socket.close()
