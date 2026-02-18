@@ -1,6 +1,8 @@
 # CECS-327-Assignment-1
 Mini Housing Search Service
 
+To the person grading this, we cannot attack a listings.json file, so getting the default listings.json in Canvas and placing it in the project directory should be good enough.
+
 # Valid Commands
 
 - `SEARCH city=<CityName> max_price=<Integer>`
